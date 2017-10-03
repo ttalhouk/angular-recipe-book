@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
   ]
 })
 export class AppComponent {
+  activeLink:string = 'recipes'
+
+  onLinkSelected(linkName) {
+    this.activeLink = linkName
+  }
 
 }
