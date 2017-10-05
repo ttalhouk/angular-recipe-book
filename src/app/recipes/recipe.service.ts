@@ -28,4 +28,8 @@ export class RecipeService {
     return this.recipes.slice();
   }
 
+  getRecipe(id) {
+    return this.recipes[id]
+  }
+
 }
