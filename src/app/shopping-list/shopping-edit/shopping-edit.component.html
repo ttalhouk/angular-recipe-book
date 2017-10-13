@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-xs-12">
-    <form>
+    <form
+      (ngSubmit)="addListItem(f)"
+      #f="ngForm"
+    >
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name">
@@ -10,7 +13,9 @@
             type="text"
             class="form-control"
             id="name"
-            #nameInput
+            name="name"
+            ngModel
+            required
           >
         </div>
         <div class="col-sm-2 form-group">
@@ -20,21 +25,37 @@
             type="number"
             class="form-control"
             id="quantity"
-            #quantityInput
+            name="quantity"
+            ngModel
+            required
+            pattern="^[0-9]+[0-9]*$"
           >
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
+          <div class="col-xs-12">
+            <button
+              class="btn btn-success"
+              type="submit"
+              [disabled]="!f.valid"
+            >
+              {{ editMode ? 'Update' : 'Add'}}
+            </button>
           <button
-            class="btn btn-success"
-            type="submit"
-            (click)="addListItem(nameInput.value, quantityInput.value)"
+            class="btn btn-danger"
+            type='button'
+            (click)='deleteItem()'
+            *ngIf='editMode'
           >
-            Add
+            Delete
           </button>
-          <button class="btn btn-danger" type='button'>Delete</button>
-          <button class="btn btn-primary" type='button'>Clear</button>
+          <button
+            class="btn btn-primary"
+            type='button'
+            (click)='clearForm()'
+          >
+            Clear
+          </button>
         </div>
       </div>
     </form>
