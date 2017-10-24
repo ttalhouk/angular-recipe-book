@@ -1,5 +1,6 @@
 import { EventEmitter } from '@angular/core';
 
+
 import {Recipe} from './recipe.model';
 import {Ingredient} from '../shared/ingredient.model';
 
@@ -38,6 +39,11 @@ export class RecipeService {
 
   addRecipe(recipe:Recipe) {
     this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  setRecipes(recipes) {
+    this.recipes = recipes;
     this.recipesChanged.next(this.recipes.slice());
   }
 
