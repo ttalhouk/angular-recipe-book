@@ -3,19 +3,22 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 
 import { RecipeService } from '../recipes/recipe.service';
+import { AuthService } from '../auth/auth.service';
 import { Recipe } from '../recipes/recipe.model';
 
 import { firebaseUrl } from './globals';
 
 @Injectable()
 export class DataStorageSevice {
-  constructor(private http: Http, private recipeService: RecipeService){}
-  endPoint = `${firebaseUrl}/recipies.json`
+  constructor(private http: Http, private recipeService: RecipeService, private authService: AuthService){}
+  endPoint = `${firebaseUrl}/recipies.json`;
   saveRecipes() {
-    return this.http.put(this.endPoint, this.recipeService.getRecipes());
+    const token = this.authService.getToken();
+    return this.http.put(`${this.endPoint}?auth=${token}`, this.recipeService.getRecipes());
   }
   fetchRecipes() {
-    return this.http.get(this.endPoint)
+    const token = this.authService.getToken();
+    return this.http.get(`${this.endPoint}?auth=${token}`)
       .map((response: Response) => {
         const recipes: Recipe[] = response.json();
         for(let recipe of recipes){
