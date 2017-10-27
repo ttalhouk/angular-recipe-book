@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Response } from '@angular/http';
 
-import { DataStorageSevice } from '../shared/data-storage.service';
-import { AuthService } from '../auth/auth.service';
-import { RecipeService } from '../recipes/recipe.service';
-import { Recipe } from '../recipes/recipe.model'
+import { DataStorageSevice } from '../../shared/data-storage.service';
+import { AuthService } from '../../auth/auth.service';
+import { RecipeService } from '../../recipes/recipe.service';
+import { Recipe } from '../../recipes/recipe.model'
 
 @Component({
   selector: 'app-header',
