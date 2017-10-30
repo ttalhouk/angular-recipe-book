@@ -1,38 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 
 import { DataStorageSevice } from '../../shared/data-storage.service';
 import { AuthService } from '../../auth/auth.service';
-import { RecipeService } from '../../recipes/recipe.service';
-import { Recipe } from '../../recipes/recipe.model'
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  templateUrl: './header.component.html'
 })
-export class HeaderComponent implements OnInit {
-
-  constructor(
-    private router: Router,
-    private recipeService: RecipeService,
-    private dataStorageService: DataStorageSevice,
-    private authService:AuthService) { }
-
-  ngOnInit() {
+export class HeaderComponent {
+  constructor(private dataStorageService: DataStorageSevice,
+              private authService: AuthService) {
   }
 
-  onSave(){
+  onSaveData() {
     this.dataStorageService.saveRecipes()
-      .subscribe((response: Response) => {
-        console.log(response.json());
-      });
+      .subscribe(
+        (response: Response) => {
+          console.log(response);
+        }
+      );
   }
-  onFetch(){
+
+  onFetchData() {
     this.dataStorageService.fetchRecipes();
   }
-  onLogout(){
+
+  onLogout() {
     this.authService.logout();
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
   }
 }
